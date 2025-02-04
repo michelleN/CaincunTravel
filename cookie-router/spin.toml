@@ -1,0 +1,19 @@
+spin_manifest_version = 2
+
+[application]
+name = "cookie-router"
+version = "0.1.0"
+authors = ["Vaughn Dice <vaughn.dice@fermyon.com>"]
+description = ""
+
+[[trigger.http]]
+route = "/..."
+component = "cookie-router"
+
+[component.cookie-router]
+source = "target/wasm32-wasip1/release/cookie-router.wasm"
+allowed_outbound_hosts = []
+key_value_stores = ["default"]
+[component.cookie-router.build]
+command = "cargo build --target wasm32-wasip1 --release"
+watch = ["src/**/*.rs", "Cargo.toml"]
