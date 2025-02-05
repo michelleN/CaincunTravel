@@ -1,0 +1,15 @@
+spin_manifest_version = 2
+
+[application]
+name = "caincun-ui"
+version = "0.1.0"
+authors = ["Ronan Flynn-Curran <ronan@fermyon.com>"]
+description = "a travel agency website with a twist"
+
+[[trigger.http]]
+route = "/..."
+component = "app"
+
+[component.app]
+source = { url = "https://github.com/fermyon/spin-fileserver/releases/download/v0.1.0/spin_static_fs.wasm", digest = "sha256:96c76d9af86420b39eb6cd7be5550e3cb5d4cc4de572ce0fd1f6a29471536cb4" }
+files = [{ source = "app", destination = "/" }]
