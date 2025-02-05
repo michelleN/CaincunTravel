@@ -1,4 +1,5 @@
 use anyhow::Result;
+use std::str;
 use uuid::Uuid;
 use spin_sdk::{
     http::{send, IntoResponse, Method, Params, Request, RequestBuilder, Response, ResponseBuilder, Router},
@@ -7,9 +8,9 @@ use spin_sdk::{
 use spin_sdk::http_component;
 
 #[http_component]
-fn handle_request(req: Request) -> anyhow::Result<impl IntoResponse> {
+fn handle_request(req: Request) -> Result<impl IntoResponse> {
     let mut router = Router::default();
-    router.get("/", route_by_cookie);
+    router.get_async("/", route_by_cookie);
     Ok(router.handle(req))
 }
 
@@ -35,41 +36,21 @@ async fn route_by_cookie(req: Request, _: Params) -> Result<impl IntoResponse> {
     // Open the default key-value store
     let store = Store::open_default()?;
 
-    let mut uuid: String;
-
-
-    // uuid = Some(has_desired_cookie(&req)) = uuid_cookie {
-    // let cookies = req.header("cookie");
-    //     if let Some(cookie_header) = cookies {
-    //         if let Some(cookie_str) = cookie_header.as_str() {
-    //             for c in cookie_str.split(";") {
-    //                 if c.contains("uuid") {
-    //                     let pieces: Vec<&str> = c.split("=").collect();
-    //                     match store.get(pieces[1]) {
-    //                         Ok(_) => {
-    //                             uuid = pieces[1]
-    //                             /* valid user session found, inspect value? */
-    //                         },
-    //                     };
-    //                 }
-    //             }
-    //         }
-    //     }
-    // } else {
-    //          // Create a new uuid/session
-    //          uuid = Uuid::new_v4();
-    //          store.set(uuid, "TBD-start-of-game".as_bytes());
-    // };
-
+    println!("has_desired_cookie = {:?}", has_desired_cookie(&req).or(Some("cookie not found".to_string())));
     let uuid: String =  match has_desired_cookie(&req) {
         Some(cookie_header) => {
             cookie_header
             .split(';')
-            .find_map(|cookie| {
-                let mut parts = cookie.trim().split('=');
-                match (parts.next(), parts.next()) {
-                    (Some("uuid"), Some(value)) => Some(value.to_string()),
-                    _ =>  Some(Uuid::new_v4().to_string()),
+            .find_map(|cookie_chunk| {
+                if cookie_chunk.contains("uuid") {
+                    let mut parts = cookie_chunk.trim().split("=");
+                    parts.next(); // 'uuid'
+                    match parts.next() {
+                        Some(uuid) => Some(uuid.to_string()),
+                        None => Some(Uuid::new_v4().to_string())
+                    }
+                } else {
+                    None
                 }
             }).unwrap()
         },
@@ -78,25 +59,37 @@ async fn route_by_cookie(req: Request, _: Params) -> Result<impl IntoResponse> {
         }
     };
 
-
     // Is the uuid in the store?
-    // No: store it with "in-prog" or something
-    // Yes: retrieve from store and somehow analyze value 
-
-    // store.set(uuid, "TBD-start-of-game".as_bytes());
-
+    println!("store keys: {:?}", store.get_keys());
+    match store.get(&uuid) {
+        Ok(val) => match val {
+            Some(val) => {
+                // somehow analyze value, set to some new state?
+                println!("value corresponding to session uuid {} is {:?}", &uuid, str::from_utf8(&val).unwrap_or("NONE"));
+            },
+            None => {
+                // store it with "in-prog" or something
+                println!("no value corresponding with session uuid {} in store", &uuid);
+                store.set(&uuid, "TBD-start-of-game".as_bytes())?;
+            }
+        },
+        Err(e) => {
+            // TODO: error on get; what to do?
+            println!("error getting uuid {} from store: {}", &uuid, e);
+        }
+    }
 
     let engine_route = "/engine";
-    let engine_req = RequestBuilder::new(Method::Get, engine_route).build();
+    let mut engine_req = RequestBuilder::new(Method::Get, engine_route).build();
     // TODO: hand the entire cookie as-is to the engine?  Or just the session?
-    // engine_req.set_header("cookie", req.header("cookie"));
+    engine_req.set_header("session-uuid", &uuid);
     let engine_response: Response = send(engine_req).await?;
 
     Ok(ResponseBuilder::new(200)
         .header("content-type", "text/html")
         .header(
             "set-cookie",
-            format!("caincun-travel=yes;Path=/;SameSite=Lax;Max-Age=3600;UUID={}", uuid),
+            format!("caincun-travel=yes;Path=/;SameSite=Lax;Max-Age=3600;uuid={}", uuid),
         )
         .body(engine_response.body().to_vec())
         .build())

@@ -1,5 +1,5 @@
 [package]
-name = "backend"
+name = "cookie-router"
 authors = ["Thorsten Hans & The Team Where Half of its Members Have Names Starting with 'M'"]
 description = ""
 version = "0.1.0"

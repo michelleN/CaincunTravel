@@ -11,8 +11,8 @@ route = "/..."
 component = "cookie-router"
 
 [component.cookie-router]
-source = "target/wasm32-wasip1/release/cookie-router.wasm"
-allowed_outbound_hosts = []
+source = "target/wasm32-wasip1/release/cookie_router.wasm"
+allowed_outbound_hosts = ["http://self"]
 key_value_stores = ["default"]
 [component.cookie-router.build]
 command = "cargo build --target wasm32-wasip1 --release"
