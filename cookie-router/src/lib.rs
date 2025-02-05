@@ -31,7 +31,6 @@ fn has_desired_cookie(req: &Request) -> Option<String> {
     }
 }
 
-
 async fn route_by_cookie(req: Request, _: Params) -> Result<impl IntoResponse> {
     // Open the default key-value store
     let store = Store::open_default()?;
@@ -52,7 +51,7 @@ async fn route_by_cookie(req: Request, _: Params) -> Result<impl IntoResponse> {
                 } else {
                     None
                 }
-            }).unwrap()
+            }).unwrap_or(Uuid::new_v4().to_string())
         },
         None => {
             Uuid::new_v4().to_string()
@@ -79,7 +78,8 @@ async fn route_by_cookie(req: Request, _: Params) -> Result<impl IntoResponse> {
         }
     }
 
-    let engine_route = "/engine";
+    // Self/local paths don't work in FWF ?
+    let engine_route = "http://localhost:3000/site";
     let mut engine_req = RequestBuilder::new(Method::Get, engine_route).build();
     // TODO: hand the entire cookie as-is to the engine?  Or just the session?
     engine_req.set_header("session-uuid", &uuid);

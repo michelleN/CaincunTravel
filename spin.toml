@@ -1,0 +1,33 @@
+spin_manifest_version = 2
+
+[application]
+name = "caincun-travel"
+version = "0.1.0"
+authors = ["The Team Where Half of its Members Have Names Starting with 'M'"]
+description = "a travel agency website with a twist"
+
+[[trigger.http]]
+route = "/..."
+component = "cookie-router"
+
+[component.cookie-router]
+source = "cookie-router/target/wasm32-wasip1/release/cookie_router.wasm"
+key_value_stores = ["default"]
+# self not allowed in FWF (?)
+# allowed_outbound_hosts = ["http://self"]
+allowed_outbound_hosts = ["*://*:*"]
+[component.cookie-router.build]
+command = "cd cookie-router && cargo build --target wasm32-wasip1 --release"
+watch = ["cookie-router/src/**/*.rs", "cookie-router/Cargo.toml"]
+
+[[trigger.http]]
+route = "/site"
+component = "site"
+
+# TODO: site broken; what paths do we need to change so that /css and /image, etc are under /site?
+
+[component.site]
+source = { url = "https://github.com/fermyon/spin-fileserver/releases/download/v0.1.0/spin_static_fs.wasm", digest = "sha256:96c76d9af86420b39eb6cd7be5550e3cb5d4cc4de572ce0fd1f6a29471536cb4" }
+files = [{ source = "ui/app", destination = "/" }]
+
+# TODO: add engine
