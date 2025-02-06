@@ -28,6 +28,7 @@ function chatClose() {
 //Gets the text from the input box(user)
 function sendChat() {
     let userText = document.getElementById("textInput").value;
+    userText = userText.trim();
     // Put text in the chat window
     document.getElementById("messageBox").innerHTML += `<div class="first-chat">
       <p>${userText}</p>
