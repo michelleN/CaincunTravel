@@ -31,6 +31,8 @@ source = { url = "https://github.com/fermyon/spin-fileserver/releases/download/v
 files = [{ source = "ui/app", destination = "/" }]
 # Is a bug in the fileserver, also PR default spin icon ad favicon
 environment = { FALLBACK_PATH = "index.html" }
+[component.site.build]
+command = ["cd ui && npm install"]
 
 [[trigger.http]]
 route = "/api/..."
