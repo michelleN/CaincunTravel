@@ -380,6 +380,8 @@ h1.title {
 
 .message-box .second-chat #circle-mar {
     margin-top: 5px;
+    background: url(../image/jose-sm.jpg);
+    background-size: contain;
 }
 
 .message-box .second-chat p {
@@ -416,7 +418,7 @@ h1.title {
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 0px 30px;
+    padding: 18px 30px;
     padding-bottom: 18px;
     border-top: 1px solid lightgray;
 }
