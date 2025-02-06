@@ -479,6 +479,21 @@ h1.title {
     right: -65px;
 }
 
+.message-box #circle-mar:nth-child(6),
+.message-box #circle-mar:nth-child(10) {
+        background: url(../image/jose-glitch.gif);
+          background-size: auto;
+        background-size: contain;
+}
+
+.message-box #circle-mar:nth-child(7),
+.message-box #circle-mar:nth-child(12) {
+        background: url(../image/jose-glitch.gif);
+          background-size: auto;
+        background-size: contain;
+}
+
+
 /* RESPONSIVE */
 @media screen and (max-width: 396px) {
     .chat-window {
