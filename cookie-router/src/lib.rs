@@ -18,7 +18,8 @@ fn has_desired_cookie(req: &Request) -> Option<String> {
     match req.header("cookie") {
         Some(header) => match header.as_str() {
             Some(header_value) => {
-                if header_value.contains("caincun-travel=yes") {
+                println!("header_value = {:?}", header_value);
+                if header_value.contains("caincun-travel") {
                     Some(header_value.to_string())
                 } 
                 else {
@@ -79,19 +80,21 @@ async fn route_by_cookie(req: Request, _: Params) -> Result<impl IntoResponse> {
     }
 
     // Self/local paths don't work in FWF ?
-    let engine_route = "http://localhost:3000/site";
-    let mut engine_req = RequestBuilder::new(Method::Get, engine_route).build();
+    let engine_route = "/site/";
+    //let mut engine_req = RequestBuilder::new(Method::Get, engine_route).build();
     // TODO: hand the entire cookie as-is to the engine?  Or just the session?
-    engine_req.set_header("session-uuid", &uuid);
-    let engine_response: Response = send(engine_req).await?;
+    //engine_req.set_header("session-uuid", &uuid);
+    //let engine_response: Response = send(engine_req).await?;
 
-    Ok(ResponseBuilder::new(200)
-        .header("content-type", "text/html")
+    Ok(ResponseBuilder::new(302)
+        //.header("content-type", "text/html")
         .header(
             "set-cookie",
-            format!("caincun-travel=yes;Path=/;SameSite=Lax;Max-Age=3600;uuid={}", uuid),
+            //format!("caincun-travel=yes;Path=/;SameSite=Lax;Max-Age=3600;uuid={}", uuid),
+            format!("caincun-travel={};Path=/;SameSite=Lax;Max-Age=3600", uuid),
         )
-        .body(engine_response.body().to_vec())
+        .header("location", engine_route)
+        //.body(engine_response.body().to_vec())
         .build())
 }
 
