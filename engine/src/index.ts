@@ -300,7 +300,9 @@ if (nextStage.stageNumber === 100) {
         console.log("No session ID found");
     }
 
-    return new Response(JSON.stringify(nextStage));
+    // // res.setHeader("Set-Cookie", "your_cookie_name=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Path=/; HttpOnly; Secure");
+
+    return new Response(JSON.stringify(nextStage), {headers: {'Set-Cookie': `caincun-travel=; Expires=Thu, 01 Jan 1970 00:00:00 GMT`}});
 
 }
 
