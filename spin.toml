@@ -6,14 +6,9 @@ version = "0.1.0"
 authors = ["The Team Where Half of its Members Have Names Starting with 'M'"]
 description = "a travel agency website with a twist"
 
-[variables]
-qr_url = { default = "" }
-kv_explorer_user = { required = true }
-kv_explorer_password = { required = true }
-
-[[trigger.http]]
-route = "/"
-component = "cookie-router"
+# [[trigger.http]]
+# route = "/"
+# component = "cookie-router"
 
 [component.cookie-router]
 source = "cookie-router/target/wasm32-wasip1/release/cookie_router.wasm"
@@ -26,7 +21,7 @@ command = "cd cookie-router && cargo build --target wasm32-wasip1 --release"
 watch = ["cookie-router/src/**/*.rs", "cookie-router/Cargo.toml"]
 
 [[trigger.http]]
-route = "/site/..."
+route = "/..."
 component = "site"
 
 # TODO: site broken; what paths do we need to change so that /css and /image, etc are under /site?
