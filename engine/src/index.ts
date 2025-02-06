@@ -306,6 +306,24 @@ if (nextStage.stageNumber === 100) {
 
 }
 
+if (nextStage.stageNumber === 99) {
+    console.log("Stage 99 reached");
+    let endTime = Date.now();
+    let store = Kv.openDefault()
+    let sessionId = getSessionId(req);
+    if (sessionId != "") {
+    let state: SessionState = store.getJson(sessionId);
+    let totalTime = endTime - Number(state.startTime);
+    console.log(`Total time: ${totalTime}`);
+    nextStage.totalTime = Number(totalTime);
+    nextStage.message = nextStage.message + `\nYou have FAILED the game in ${totalTime/1000} seconds!`;
+    console.log(nextStage);
+    } else {
+        console.log("No session ID found");
+    }
+    return new Response(JSON.stringify(nextStage), {headers: {'Set-Cookie': `caincun-travel=; Expires=Thu, 01 Jan 1970 00:00:00 GMT`}});
+}
+
 return new Response(JSON.stringify(nextStage));
 
 }
