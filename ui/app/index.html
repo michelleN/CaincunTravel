@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400,500,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/output.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="Tab icon" href="assets/images/sparrow favicon.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <script src="./js/main.js"></script>
+    <script src="./js/chat.js"></script>
 </head>
+
 <body>
     <nav class="navbar">
         <div class="navbar-content align-items mx-auto flex-row text-center">
@@ -27,7 +34,7 @@
             </div>
         </div>
     </nav>
-    
+
     <main>
         <section class="hero">
             <h1 class="text-6xl md:text-12xl font-semibold pt-12">Experience the Future of Travel with AI</h1>
@@ -41,13 +48,16 @@
 
         <section class="about-section grid grid-cols-12">
             <h2 class="col-span-6 text-2xl text-semibold pr-24 leading-snug">Travel and Technology Together</h2>
-            <p  class="col-span-6">Discover how cAIncun combines cutting-edge AI technology with the joy of travel to offer unparalleled experiences.</p>
+            <p class="col-span-6">Discover how cAIncun combines cutting-edge AI technology with the joy of travel to
+                offer unparalleled experiences.</p>
 
             <div class="package-section">
-                <img src="./image/visualelectric-1738707254518.jpg" alt="Beautiful beach landscape" class="package-image">
+                <img src="./image/visualelectric-1738707254518.jpg" alt="Beautiful beach landscape"
+                    class="package-image">
                 <div>
                     <h3>Competitive Travel Packages</h3>
-                    <p>Explore our exclusive travel packages designed to offer the best value and unforgettable experiences.</p>
+                    <p>Explore our exclusive travel packages designed to offer the best value and unforgettable
+                        experiences.</p>
                 </div>
             </div>
 
@@ -57,135 +67,49 @@
         </section>
     </main>
 
-    <section id="chat" class="fixed bottom-0 right-4 min-h-124 h-screen/2 w-72" style="display: none;">
-        <div class="bg-blue-600 text-white p-4  shadow-lg">
-            <div class="max-w-4xl mx-auto flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <img src="https://res.cloudinary.com/djv4xa6wu/image/upload/v1735722165/AbhirajK/Abhirajk.webp" 
-                         alt="Profile" 
-                         class="w-10 h-10 rounded-full object-cover border-2 border-white">
-                    <div>
-                        <h1 class="font-bold">Jose K</h1>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <button class="p-2 hover:bg-blue-700 rounded-full transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                        </svg>
-                    </button>
-                    <button class="p-2 hover:bg-blue-700 rounded-full transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                        </svg>
-                    </button>
-                    <button class="p-2 hover:bg-blue-700 rounded-full transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                  d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
-                        </svg>
-                    </button>
-                </div>
+    <section id="chat" class="fixed bottom-0 right-4 min-h-124 h-screen/2 w-72" style="display: none;"></section>
+    <!-- chat open -->
+    <div class="chat-bar-open" id="chat-open">
+        <button id="chat-open-button" type="button" class="collapsible close" onclick="chatOpen()">
+            <img src="assets/images/Sparrow Bird.png" alt="Sparrow Bird image" />
+        </button>
+    </div>
+
+    <!-- chat close -->
+    <div class="chat-bar-close" id="chat-close">
+        <button id="chat-close-button" type="button" class="collapsible close" onclick="chatClose()">
+            <i class="material-icons-outlined"> close </i>
+        </button>
+    </div>
+
+    <!-- chat chat-window -->
+    <div class="chat-window2" id="chat-window2">
+        <div class="message-box" id="messageBox">
+            <div class="hi-there">
+                <p class="p1">CAINCUN Travel</p>
+                <br />
+                <p class="p2">We're her to help</p>
             </div>
         </div>
-    
-        <!-- Chat Messages -->
-        <div class="flex-1 overflow-y-auto p-4 chat-container">
-            <div class="max-w-4xl mx-auto space-y-4">
-                <!-- Receiver Message -->
-                <div class="flex items-start space-x-2">
-                    <img src="https://res.cloudinary.com/djv4xa6wu/image/upload/v1735722165/AbhirajK/Abhirajk.webp" 
-                         alt="Abhiraj" 
-                         class="w-8 h-8 rounded-full object-cover">
-                    <div>
-                        <div class="bg-white rounded-lg rounded-tl-none p-3 shadow-md max-w-md">
-                            <p>Hey there!
-                            </p>
-                        </div>
-                        <span class="text-gray-500 text-xs message-time">11:42 AM</span>
-                    </div>
-                </div>
-    
-                <!-- Sender Message 
-                <div class="flex items-start justify-end space-x-2">
-                    <div class="flex flex-col items-end">
-                        <div class="bg-blue-600 text-white rounded-lg rounded-tr-none p-3 shadow-md max-w-md">
-                            <p>Amazing work! I'm impressed with your projects and technical skills.</p>
-                        </div>
-                        <span class="text-gray-500 text-xs message-time">11:43 AM</span>
-                    </div>
-                    <img src="https://res.cloudinary.com/djv4xa6wu/image/upload/v1735722163/AbhirajK/Abhirajk%20mykare.webp" 
-                         alt="User" 
-                         class="w-8 h-8 rounded-full object-cover">
-                </div> -->
-    
-                <!-- Receiver Message 
-                <div class="flex items-start space-x-2">
-                    <img src="https://res.cloudinary.com/djv4xa6wu/image/upload/v1735722165/AbhirajK/Abhirajk.webp" 
-                         alt="Abhiraj" 
-                         class="w-8 h-8 rounded-full object-cover">
-                    <div>
-                        <div class="bg-white rounded-lg rounded-tl-none p-3 shadow-md max-w-md">
-                            <p>Thank you! I specialize in full-stack development using modern technologies. Would you like to discuss a potential collaboration?</p>
-                        </div>
-                        <span class="text-gray-500 text-xs message-time">11:44 AM</span>
-                    </div>
-                </div> -->
-    
-                <!-- Typing Indicator -->
-                <div class="flex items-start space-x-2">
-                    <img src="https://res.cloudinary.com/djv4xa6wu/image/upload/v1735722165/AbhirajK/Abhirajk.webp" 
-                         alt="Abhiraj" 
-                         class="w-8 h-8 rounded-full object-cover">
-                    <div class="bg-white rounded-lg rounded-tl-none p-3 shadow-md">
-                        <div class="typing-indicator">
-                            <span>•</span>
-                            <span>•</span>
-                            <span>•</span>
-                        </div>
-                    </div>
-                </div>
+        <div class="input-box">
+            <div class="write-reply">
+                <input class="inputText" type="text" id="textInput" placeholder="Write a reply..." />
             </div>
-        </div>
-    
-        <!-- Chat Input -->
-        <div class="bg-white border-t p-4">
-            <div class="max-w-4xl mx-auto flex items-center space-x-4">
-                <button class="p-2 text-gray-500 hover:text-gray-700 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                              d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                </button>
-                <button class="p-2 text-gray-500 hover:text-gray-700 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                              d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
-                    </svg>
-                </button>
-                <input type="text" 
-                       placeholder="Type your message..." 
-                       class="flex-1 p-2 border rounded-full focus:outline-none focus:border-blue-500">
-                <button class="p-2 text-white bg-blue-600 rounded-full hover:bg-blue-700 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                              d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-                    </svg>
+            <div class="send-button">
+                <button type="submit" class="send-message" id="send" onclick="sendChat()">
+                    <i class="material-icons-outlined"> send </i>
                 </button>
             </div>
         </div>
+    </div>
     </section>
-    
+
     <script>
         // Wait for 3 seconds and then show the chat div
         setTimeout(() => {
-            const chatElement = document.getElementById('chat');
-            if (chatElement) {
-                chatElement.style.display = 'block';
-            }
+            chatOpen()
         }, 3000);
     </script>
 </body>
+
 </html>
