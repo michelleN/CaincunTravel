@@ -388,7 +388,7 @@ h1.title {
     margin-right: 5px;
 }
 
-.message-box .second-chat #circle-mar {
+.message-box div #circle-mar {
     margin-top: 5px;
     background: url(../image/jose-sm.jpg);
     background-size: contain;
@@ -479,18 +479,25 @@ h1.title {
     right: -65px;
 }
 
-.message-box #circle-mar:nth-child(6),
-.message-box #circle-mar:nth-child(10) {
-        background: url(../image/jose-glitch.gif);
-          background-size: auto;
-        background-size: contain;
+/* .message-box .second-chat:nth-of-type(4) div#circle-mar {
+    background: url(../image/jose-glitch.gif) !important;
+    background-size: contain;
 }
 
-.message-box #circle-mar:nth-child(7),
-.message-box #circle-mar:nth-child(12) {
-        background: url(../image/jose-glitch.gif);
-          background-size: auto;
-        background-size: contain;
+.message-box .second-chat:nth-of-type(5) div#circle-mar {
+    background: url(../image/jose-glitch2.gif) !important;
+    background-size: contain;
+} */
+
+.message-box .second-chat:nth-of-type(4) div#circle-mar {
+    background: url(../image/jose-glitch.gif) !important;
+    background-size: contain !important;
+}
+
+.message-box .second-chat:nth-of-type(6) div#circle-mar,
+.message-box .second-chat:nth-of-type(10) div#circle-mar  {
+    background: url(../image/jose-glitch2.gif) !important;
+    background-size: contain !important;
 }
 
 
