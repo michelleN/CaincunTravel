@@ -8,6 +8,8 @@ description = "a travel agency website with a twist"
 
 [variables]
 qr_url = { default = "" }
+kv_explorer_user = { required = true }
+kv_explorer_password = { required = true }
 
 [[trigger.http]]
 route = "/"
@@ -63,3 +65,16 @@ workdir = "qr"
 watch = ["src/**/*.rs", "Cargo.toml"]
 [component.qr.variables]
 qr_url = "{{ qr_url }}"
+
+[[trigger.http]]
+component = "kv-explorer"
+route = "/internal/kv-explorer/..."
+
+[component.kv-explorer]
+source = { url = "https://github.com/fermyon/spin-kv-explorer/releases/download/v0.10.0/spin-kv-explorer.wasm", digest = "sha256:65bc286f8315746d1beecd2430e178f539fa487ebf6520099daae09a35dbce1d" }
+allowed_outbound_hosts = ["redis://*:*", "mysql://*:*", "postgres://*:*"]
+# add or remove stores you want to explore here
+key_value_stores = ["default"]
+
+[component.kv-explorer.variables]
+kv_credentials = "fermyon:fermyon"
