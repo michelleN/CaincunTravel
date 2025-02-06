@@ -72,25 +72,6 @@ function hasCookie(req: Request): boolean {
     return false;
 }
 
-// function updateCookie(req: Request, stage: number): CookieSessionState {
-//     let cookie = req.headers.get('Cookie');
-//     if (cookie) {
-//         let c = Cookie.parse(cookie);
-//         console.log(JSON.stringify(c));
-//         if (c['caincun-travel']) {
-//             let current = JSON.parse(c['caincun-travel']) as CookieSessionState;
-//             current.stage = stage;
-//             return current
-//         } 
-//     }
-
-//     let store = Kv.openDefault()
-//     let newSessionId = uuidv4();
-//     store.set(newSessionId, stage.toString());
-
-//     return {uuid: newSessionId, stage: stage} as CookieSessionState;
-// }
-
 function getSessionId(req: Request): string {
 
     let cookie = req.headers.get('Cookie');
@@ -277,11 +258,6 @@ if (nextStageResponseOption.message) {
     console.log(`Next stage response option message: ${nextStageResponseOption.message}`);
     nextStage.message = `${nextStageResponseOption.message} \n ${nextStage.message}`;
 };
-
-// if (nextStage.stageNumber === 100  || nextStage.stageNumber === 99) {
-// //delete http Cookie header
-// // res.setHeader("Set-Cookie", "your_cookie_name=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Path=/; HttpOnly; Secure");
-// return new Response(JSON.stringify(nextStage), {headers: {'Set-Cookie': `caincun-travel=; Expires=Thu, 01 Jan 1970 00:00:00 GMT`}});
 
 console.log(nextStage.stageNumber);
 if (nextStage.stageNumber === 100) {
