@@ -87,7 +87,12 @@ function getSessionId(req: Request): string {
 interface SessionState {
     startTime: number;
     result?: string;
-    endTime?: number;
+    totalTime?: number;
+}
+
+interface WinnerTime {
+    uuid: string;
+    totalTime: number;
 }
 
 function setSessionStart(req: Request): string {
@@ -266,12 +271,42 @@ if (nextStage.stageNumber === 100) {
     let store = Kv.openDefault()
     let sessionId = getSessionId(req);
     if (sessionId != "") {
-    let state: SessionState = store.getJson(sessionId);
-    let totalTime = endTime - Number(state.startTime);
-    console.log(`Total time: ${totalTime}`);
-    nextStage.totalTime = Number(totalTime);
-    nextStage.message = nextStage.message + `\nYou have completed the game in ${totalTime/1000} seconds!`;
-    console.log(nextStage);
+        let state: SessionState = store.getJson(sessionId);
+        let totalTime = endTime - Number(state.startTime);
+        console.log(`Total time to Win: ${totalTime}`);
+        nextStage.totalTime = Number(totalTime);
+        nextStage.message = nextStage.message + `\n\nYou have completed the game in ${totalTime/1000} seconds!`;
+        // update sessionState and store
+        state.totalTime = Number(totalTime);
+        state.result = "Won";
+        store.setJson(sessionId, state);
+
+        // Get all winners
+        let winners: WinnerTime[] = [];
+        let sessions = store.getKeys();
+        for (const session of sessions) {
+            console.log(`session = ${session}`);
+            let sessionState: SessionState = store.getJson(session);
+            if (sessionState.result && sessionState.result === "Won") {
+                let winnerTime: WinnerTime = {uuid: session, totalTime: Number(sessionState.totalTime)};
+                winners.push(winnerTime);
+            }
+        }
+        // Sort by best time
+        winners.sort((a, b) => a.totalTime < b.totalTime ? -1 : a.totalTime > b.totalTime ? 1 : 0)
+        // Get top winners
+        let topWinners: WinnerTime[] = winners;
+        if (winners.length > 3) {
+            let topWinners = winners.slice(0, 2);
+        }
+
+        nextStage.message = nextStage.message + "\n\nThe top winners are:";
+        for (const winner of topWinners) {
+            nextStage.message = nextStage.message + `\n${winner.uuid} - ${Number(winner.totalTime)/1000}s`;
+        }
+
+        console.log(nextStage);
+
     } else {
         console.log("No session ID found");
     }
@@ -290,9 +325,14 @@ if (nextStage.stageNumber === 99) {
     if (sessionId != "") {
     let state: SessionState = store.getJson(sessionId);
     let totalTime = endTime - Number(state.startTime);
-    console.log(`Total time: ${totalTime}`);
+    console.log(`Total time to Lose: ${totalTime}`);
     nextStage.totalTime = Number(totalTime);
     nextStage.message = nextStage.message + `\nYou have FAILED the game in ${totalTime/1000} seconds!`;
+    // update sessionState and store
+    state.totalTime = totalTime;
+    state.result = "Lost";
+    store.setJson(sessionId, state)
+
     console.log(nextStage);
     } else {
         console.log("No session ID found");
