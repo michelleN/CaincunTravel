@@ -7,7 +7,7 @@ authors = ["The Team Where Half of its Members Have Names Starting with 'M'"]
 description = "a travel agency website with a twist"
 
 [[trigger.http]]
-route = "/cooke-router/"
+route = "/"
 component = "cookie-router"
 
 [component.cookie-router]
@@ -21,7 +21,7 @@ command = "cd cookie-router && cargo build --target wasm32-wasip1 --release"
 watch = ["cookie-router/src/**/*.rs", "cookie-router/Cargo.toml"]
 
 [[trigger.http]]
-route = "/..."
+route = "/site/..."
 component = "site"
 
 # TODO: site broken; what paths do we need to change so that /css and /image, etc are under /site?
@@ -41,6 +41,7 @@ component = "engine"
 [component.engine]
 source = "engine/dist/engine.wasm"
 exclude_files = ["engine/**/node_modules"]
+key_value_stores = ["default"]
 [component.engine.build]
 command = ["npm install", "npm run build"]
 workdir = "engine"
