@@ -21,13 +21,25 @@ command = "cd cookie-router && cargo build --target wasm32-wasip1 --release"
 watch = ["cookie-router/src/**/*.rs", "cookie-router/Cargo.toml"]
 
 [[trigger.http]]
-route = "/site"
+route = "/site/..."
 component = "site"
 
 # TODO: site broken; what paths do we need to change so that /css and /image, etc are under /site?
 
 [component.site]
-source = { url = "https://github.com/fermyon/spin-fileserver/releases/download/v0.1.0/spin_static_fs.wasm", digest = "sha256:96c76d9af86420b39eb6cd7be5550e3cb5d4cc4de572ce0fd1f6a29471536cb4" }
+source = { url = "https://github.com/fermyon/spin-fileserver/releases/download/v0.3.0/spin_static_fs.wasm", digest = "sha256:ef88708817e107bf49985c7cefe4dd1f199bf26f6727819183d5c996baa3d148" }
 files = [{ source = "ui/app", destination = "/" }]
+# Is a bug in the fileserver, also PR default spin icon ad favicon
+environment = { FALLBACK_PATH = "index.html" }
 
-# TODO: add engine
+[[trigger.http]]
+route = "/api/..."
+component = "engine"
+
+[component.engine]
+source = "engine/dist/engine.wasm"
+exclude_files = ["engine/**/node_modules"]
+[component.engine.build]
+command = ["npm install", "npm run build"]
+workdir = "engine"
+watch = ["src/**/*.ts"]
