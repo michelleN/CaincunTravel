@@ -32,7 +32,7 @@ files = [{ source = "ui/app", destination = "/" }]
 # Is a bug in the fileserver, also PR default spin icon ad favicon
 environment = { FALLBACK_PATH = "index.html" }
 [component.site.build]
-command = ["cd ui && npm install"]
+command = "cd ui && npm install"
 
 [[trigger.http]]
 route = "/api/..."
@@ -43,6 +43,6 @@ source = "engine/dist/engine.wasm"
 exclude_files = ["engine/**/node_modules"]
 key_value_stores = ["default"]
 [component.engine.build]
-command = ["npm install", "npm run build"]
+command = "npm install && npm run build"
 workdir = "engine"
 watch = ["src/**/*.ts"]
