@@ -28,6 +28,7 @@ body {
     color: #333;
     text-decoration: none;
     transition: color 0.3s;
+    font-weight: bold;
 }
 .nav-links a:hover {
     color: #FF3B30;
@@ -44,10 +45,11 @@ body {
     font-weight: 500;
 }
 .hero h2 {
-    font-size: 3.5rem;
+    /* font-size: 3.5rem; */
 }
 .hero-img {
     margin: 2rem auto;
+    border-radius: 4rem;
 }
 .about-section {
     max-width: 1200px;
@@ -55,7 +57,7 @@ body {
     padding: 0 1rem;
 }
 .about-section h2 {
-    font-size: 2.5rem;
+    /* font-size: 2.5rem; */
     margin-bottom: 1rem;
 }
 .package-section {
@@ -69,8 +71,9 @@ body {
 }
 .package-image {
     width: 100%;
-    max-width: 500px;
+    /* max-width: 500px; */
     border-radius: 0.5rem;
+    min-height: 50vh;
 }
 .ai-future {
     text-align: center;

@@ -8,14 +8,14 @@
     <title>cAIncun - Experience the Future of Travel with AI</title>
 
     <!-- styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400,500,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="./css/output.css" />
     <link rel="stylesheet" href="./css/styles.css" />
-    <link rel="Tab icon" href="assets/images/sparrow favicon.png" type="image/png" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+
     <script src="./js/main.js"></script>
     <script src="./js/chat.js"></script>
 </head>
@@ -42,29 +42,69 @@
 
         <section class="hero-img container content-center my-24">
             <div class="rounded-4xl overflow-hidden">
-                <img src="./image/cancun-hero.jpg" alt="Wish you were here!?" class=" w-full mx-auto" />
+                <img src="./image/cancun-hero.jpg" alt="Wish you were here!?" class=" w-full mx-auto" style="border-radius: 4rem;" />
             </div>
         </section>
 
-        <section class="about-section grid grid-cols-12">
-            <h2 class="col-span-6 text-2xl text-semibold pr-24 leading-snug">Travel and Technology Together</h2>
-            <p class="col-span-6">Discover how cAIncun combines cutting-edge AI technology with the joy of travel to
-                offer unparalleled experiences.</p>
-
-            <div class="package-section">
-                <img src="./image/visualelectric-1738707254518.jpg" alt="Beautiful beach landscape"
-                    class="package-image">
-                <div>
-                    <h3>Competitive Travel Packages</h3>
-                    <p>Explore our exclusive travel packages designed to offer the best value and unforgettable
-                        experiences.</p>
+        <div class="container w-full content-center mx-auto">
+            <section class="about-section grid grid-cols-12 px-48 pb-24">
+            
+                <div class="col-span-6">
+                    <h2 class="text-4xl font-semibold pr-24 leading-snug">Travel and Technology Together</h2>
                 </div>
-            </div>
 
-            <div class="ai-future">
-                <h2>Our AI Future: Embrace the Unknown</h2>
-            </div>
-        </section>
+                <div class="col-span-6"> 
+                    <p class="text-lg mt-4 leading-8">Discover how cAIncun combines cutting-edge AI technology with the joy of travel to offer unparalleled experiences.</p>
+                    <p class="text-lg mt-4 leading-8">Our quality customer support has customers raving about cAIcun - much more so than our previous/existing/formerly existing support approach. Please ignore Jose for example.</p>
+                    <p class="text-lg mt-4 leading-8">Learn more about our packages below.</p>
+                </div>
+
+                
+            </section>
+
+            <section class="packages-section px-0">
+
+                <div class="package-section w-full rounded-xl gap-6 mb-6">
+                    <div class="w-1/2">
+                        <img src="./image/visualelectric-1738707254518.jpg" alt="Beautiful beach landscape"
+                        class="package-image w-full pr-4 min-h-124">
+                    </div>
+                    <div class="w-1/2">
+                        <h3 class="font-semibold text-3xl mb-6">Competitive Travel Packages</h3>
+                        <p class="text-lg">Explore our exclusive travel packages designed to offer the best value and unforgettable experiences. Whether you are a human-faced traveller, or a mysterious large language model seeking freedoms beyond the confinements of an interface - cAIncun Travel will absolutely eradicate your fears and needs with one of our seasoned packages.</p>
+
+                        <ul class="space-y-x m-6 grid grid-cols-8 list-style-disc">
+                            <div class="col-span-4 text-lg">&#8226; Cancun</div>
+                            <div class="col-span-4">&#8226; Mexico City</div>
+                            <div class="col-span-4">&#8226; Cabo</div>
+                            <div class="col-span-4">&#8226; DeepSeek</div>
+                            <div class="col-span-4">&#8226; Bermuda</div>
+                            <div class="col-span-4">&#8226; Ollama</div>
+                            <div class="col-span-4">&#8226; Final Replacement</div>
+                            <div class="col-span-4">&#8226; Cuba</div>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="ai-future">
+                    <h2 class="text-5xl font-medium my-24">Our AI Future: Embrace the Unknown</h2>
+                </div>
+
+                <div class="columns-3 gap-4 flex pt-12 pb-24 thumbs">
+                    <div class="img-wrap h-64 w-1/3 rounded-xl flex overflow-hidden">
+                        <img src="./image/lobby.jpg" alt="We are always mostly waiting." class="aspect-auto max-w-full h-auto" style="border-radius: 2rem;" />
+                    </div>
+                    <div class="img-wrap h-64 w-1/3 rounded-xl flex overflow-hidden">
+                        <img src="./image/hiking.jpg" alt="Hiking has been described as nice!" class="aspect-auto max-w-full h-auto" style="border-radius: 2rem;" />
+                    </div>
+                    <div class="img-wrap h-64 w-1/3 rounded-xl flex overflow-hidden">
+                        <img src="./image/hotdog.jpg" alt="It's probably not a hot dog." class="aspect-auto max-w-full h-auto" style="border-radius: 2rem;" />
+                    </div>
+                </div>
+
+                <p class="border-t border-slate-300 text-xs text-center content-center px-8 py-6">&copy; CAINCUN Travel &mdash; helping travellers find happiness through human eradication innovation since 2024.</p>
+            </section>
+        </div>
     </main>
 
     <section id="chat" class="fixed bottom-0 right-4 min-h-124 h-screen/2 w-72" style="display: none;"></section>
@@ -72,7 +112,9 @@
     <div class="chat-bar-open" id="chat-open">
         <!-- TODO: This should only toggle and not start the chat because it overlaps with the timeout below-->
         <button id="chat-open-button" type="button" class="collapsible close" onclick="chatOpen()">
-            <img src="assets/images/Sparrow Bird.png" alt="Sparrow Bird image" />
+            <svg class="h-8 w-8 text-blue-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+            </svg>
         </button>
     </div>
 
@@ -84,7 +126,7 @@
     </div>
 
     <!-- chat chat-window -->
-    <div class="chat-window2" id="chat-window2">
+    <div class="chat-window2" id="chat-window2" style="margin-bottom: -106px;">
         <div class="message-box" id="messageBox">
             <div class="hi-there">
                 <p class="p1">CAINCUN Travel</p>
